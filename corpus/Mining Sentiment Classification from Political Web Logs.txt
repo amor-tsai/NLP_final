@@ -1,0 +1,26 @@
+Over the last few years the number of web logs and amount of
+opinionated data on the World Wide Web has grown
+dramatically. Web logs allow people to share their opinions on a
+wide range of “hot” topics with virtual communities. As readers
+start turning to web logs as a source of information, automatic
+techniques that identify the sentiment of web log posts will help
+bloggers categorize and filter this exploding information source.
+However, on the surface, sentiment classification of web log
+posts, in particular political web log posts, appears to be a more
+difficult problem than classification of traditional text because of
+the interplay among the images, hyperlinks, the style of writing
+and language used within web logs. In this paper we investigate
+existing technology and their utility for sentiment classification
+on web log posts. We show that a Naïve Bayes classifier can on
+average correctly predict a posting’s political category 78.06% of
+the time with a standard deviation of 2.39. It significantly
+outperforms Support Vector Machines at the 99.9% confidence
+level with a confidence interval of [1.425, 3.488]. On average,
+SVMs correctly predicted the category of web log posts 75.47%
+of the time with a standard deviation of 2.64. Previous research
+was able to achieve an 81.0% accuracy using Naïve Bayes and
+82.9% using SVMs using our chosen feature set representation on
+a nonspecific topic corpus. Using our dataset of political
+web logs over a two-year period, we also show that it is important
+to maintain a uniform distribution in such datasets to avoid biases
+in classification.

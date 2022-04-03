@@ -1,0 +1,6 @@
+In this paper we describe the QuALiM Question Answering system which uses linguistic analysis of questions as well as candidate sentences in its answer finding process. To this end
+we have developed a rephrasing algorithm based on linguistic
+patterns that describe the structure of questions and candidate
+sentences and where precisely to find the answer in the candidate sentences. With this method and a fall-back strategy,
+both using the web as their primary data source, we participated in TREC 2004. We present our official results and a
+follow-up evaluation to elucidate the contribution of the methods used.
