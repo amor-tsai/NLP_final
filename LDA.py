@@ -1,42 +1,41 @@
 from gensim.test.utils import common_texts
 from gensim.corpora.dictionary import Dictionary
-from gensim.models import *
 from gensim.test.utils import datapath
+from gensim.models import LdaModel, LdaMulticore
+from gensim.utils import simple_preprocess
 import os
 import nltk
-from readTextFiles import readTextFiles 
-from gensim.models import LdaModel, LdaMulticore
 import gensim.downloader as api
-from gensim.utils import simple_preprocess
-from nltk.corpus import stopwords
 import re
 import logging
 
+# self-defined package
+from data import DataProcessed
+
 logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s')
-logging.root.setLevel(level=logging.INFO)
-stop_words = stopwords.words('english')
+# logging.root.setLevel(level=logging.INFO)
+logging.root.setLevel(level=logging.ERROR)
 
 
 class LDA:
-    def __init__(self,name:str = 'default', dirName:str = '.', ext: str = '*',toload: bool = False, num_topics=10):
+    '''
+    name : model name
+    toload : load model from disk
+    num_topics : number of topics
+    workers : how many CPUs used to train LDA model
+    '''
+    def __init__(self,name:str = 'lda_model',toload: bool = False, num_topics=10, workers=8):
         self.name = name
         if toload:
             self.model = LdaModel.load(self.name)
         else:
-            
-            return
-
-
-            common_dictionary = Dictionary(readTextFiles(ext='tt'))
-            common_corpus = [common_dictionary.doc2bow(text) for text in common_texts]
-            self.model = LdaModel(common_corpus,id2word=common_dictionary, num_topics=num_topics)
-            print('common_texts ',common_texts)
-            print('common_corpus: ',common_corpus)
-            print(common_dictionary)
-            print(self.model)
+            common_dictionary,common_corpus = DataProcessed().load_corpus()
+            self.model = LdaMulticore(common_corpus,id2word=common_dictionary, num_topics=num_topics, workers=workers)
+        
+        print(self.model.print_topics(-1))
 
 
 
     def save(self):
         if self.model:
-            self.model.save(datapath(self.name))
+            self.model.save(self.name)
