@@ -2,6 +2,6 @@ import os
 from LDA import LDA
 
 
-lda = LDA(toload=True)
+lda = LDA(toload=False)
 # lda.save()
 

@@ -26,13 +26,19 @@ class LDA:
     '''
     def __init__(self,name:str = 'lda_model',toload: bool = False, num_topics=10, workers=8):
         self.name = name
+        self.num_topics = num_topics
+        common_dictionary,common_corpus = DataProcessed().load_corpus()
         if toload:
             self.model = LdaModel.load(self.name)
         else:
-            common_dictionary,common_corpus = DataProcessed().load_corpus()
-            self.model = LdaMulticore(common_corpus,id2word=common_dictionary, num_topics=num_topics, workers=workers)
+            if workers == 1:
+                self.model = LdaModel(common_corpus,id2word=common_dictionary, num_topics=num_topics)
+            else:
+                self.model = LdaMulticore(common_corpus,id2word=common_dictionary, num_topics=num_topics, workers=workers)
         
-        print(self.model.print_topics(-1))
+        print(
+            self.model.show_topics(self.num_topics)
+        )
 
 
 
