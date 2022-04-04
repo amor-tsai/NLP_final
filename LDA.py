@@ -23,8 +23,9 @@ class LDA:
     toload : load model from disk
     num_topics : number of topics
     workers : how many CPUs used to train LDA model
+    iterations : Maximum number of iterations through the corpus when inferring the topic distribution of a corpus
     '''
-    def __init__(self,name:str = 'lda_model',toload: bool = False, num_topics=10, workers=8):
+    def __init__(self,name:str = 'lda_model',toload: bool = False, num_topics=10, workers=31, iterations=10):
         self.name = name
         self.num_topics = num_topics
         common_dictionary,common_corpus = DataProcessed().load_corpus()
@@ -32,9 +33,9 @@ class LDA:
             self.model = LdaModel.load(self.name)
         else:
             if workers == 1:
-                self.model = LdaModel(common_corpus,id2word=common_dictionary, num_topics=num_topics)
+                self.model = LdaModel(common_corpus,id2word=common_dictionary, num_topics=num_topics, iterations=iterations)
             else:
-                self.model = LdaMulticore(common_corpus,id2word=common_dictionary, num_topics=num_topics, workers=workers)
+                self.model = LdaMulticore(common_corpus,id2word=common_dictionary, num_topics=num_topics, workers=workers, iterations=iterations)
         
         print(
             self.model.show_topics(self.num_topics)

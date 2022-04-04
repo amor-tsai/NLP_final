@@ -11,7 +11,7 @@ import re
 import logging
 
 class DataProcessed:
-    def __init__(self,num_samples=100,load_cache=True,dictName='mydict1.dict',corpusName='corpus.mm'):
+    def __init__(self,num_samples=1000,load_cache=True,dictName='mydict1.dict',corpusName='corpus.mm'):
         self.dictName = datapath(dictName)
         self.corpusName = datapath(corpusName)
         self.load_cache = load_cache
